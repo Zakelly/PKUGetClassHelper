@@ -1,0 +1,91 @@
+﻿li a {
+    cursor: pointer;
+}
+
+.extention-container {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 0;
+}
+
+.btn-hide {
+    right: 0;
+    top: 0;
+    height: 30px;
+}
+
+.ctrlpanel {
+    top: 30px;
+    height: 180px;
+    margin-bottom: 0;
+    box-shadow: gray 0 0 5px;
+}
+
+.panel-body {
+    display: none;
+}
+.panel-body.active {
+    display: block;
+}
+
+#logo {
+    width:  22px;
+    height: 22px;
+}
+
+#imgname {
+    height: 20px;
+}
+
+.form-group {
+    margin-right: 10px;
+}
+
+[name=available] {
+    background-color: lightblue !important;
+}
+
+.statustext-normal {
+    color: darkblue;
+}
+
+.statustext-success {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.statustext-error {
+    color: red;
+    font-weight: bold;
+}
+
+.course {
+    display: inline-block;
+    background-color: #6bb6ff;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #b8f0ff;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.course:hover {
+    background-color: #51a2f2;
+}
+
+.course span {
+    margin: 0 5px;
+}
+
+#body1 {
+    padding-top: 0;
+}
+
+#dCourseList {
+    margin: 10px;
+    height: 70px;
+    overflow-y: scroll;
+}
