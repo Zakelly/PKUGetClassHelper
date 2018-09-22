@@ -29,7 +29,7 @@
 	},
 	"description": "帮您在补退选中脱颖而出",
 	"name": "PKU 选课助手" ,
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"manifest_version": 2,
 	"icons": {
 		"256": "icons/icon_256.png",

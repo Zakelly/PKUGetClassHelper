@@ -181,6 +181,7 @@
                     btnSoundConfig: null, menuSoundConfig: null,
                     btnTestSound: null, btnStopSound: null,
                     btnElectConfig: null, menuElectConfig: null, btnDummySubmit: null,
+                    btnCaptchaConfig: null, menuCaptchaConfig: null,
                     dCourseList: null, limitTimesLabel: null, btnHide: null, disableMask: null,
                     panelBody: null
                 };
@@ -210,8 +211,6 @@
                 }
                 eventHandler.detectCaptchaSuccess = function () {
                 }
-
-                document.getElementById('imgname').onload = detectCaptcha;
 
                 controls.imgname.attr("src", "http://elective.pku.edu.cn/elective2008/DrawServlet?Rand=" + Math.random())
                     .click(function () {
@@ -271,6 +270,44 @@
                         controls.btnElectConfig.attr("data-value", $(this).attr("data-value"));
                         controls.btnElectConfig.html($(this).children("a").html() + '<span class="caret"></span>');
                     });
+                });
+
+                // 验证码设置按钮们
+                controls.btnCaptchaConfig.attr("data-value", readMenuCaptchaConfig());
+                controls.menuCaptchaConfig.find("li").each(function () {
+                    $(this).click(function () {
+                        controls.btnCaptchaConfig.attr("data-value", $(this).attr("data-value"));
+                        controls.btnCaptchaConfig.html($(this).children("a").html() + '<span class="caret"></span>');
+                        writeMenuCaptchaConfig($(this).attr("data-value"));
+                        switch ($(this).attr("data-value")) {
+                            case '1':
+                                document.getElementById('validCode').disabled = false;
+                                eventHandler.detectCaptchaSuccess = function () {
+                                };
+                                document.getElementById('imgname').onload = function () {
+                                };
+                                document.getElementById('canv').style.display = 'none';
+                                break;
+                            case '2':
+                                document.getElementById('validCode').disabled = true;
+                                eventHandler.detectCaptchaSuccess = function () {
+                                };
+                                document.getElementById('imgname').onload = detectCaptcha;
+                                document.getElementById('canv').style.display = 'block';
+                                break;
+                            case '3':
+                                document.getElementById('validCode').disabled = true;
+                                eventHandler.detectCaptchaSuccess = function () {
+                                    controls.tglbtnAutoRefresh.click();
+                                };
+                                document.getElementById('imgname').onload = detectCaptcha;
+                                document.getElementById('canv').style.display = 'block';
+                                break;
+                        }
+                    });
+                    if ($(this).attr("data-value") == readMenuCaptchaConfig()) {
+                        $(this).click();
+                    }
                 });
 
                 // 声音按钮们

@@ -16,6 +16,15 @@ function readTxtInterval() {
     return rtn == null ? 15 : rtn;
 }
 
+function readMenuCaptchaConfig() {
+    var rtn = JSON.parse(localStorage.getItem('menuCaptchaConfig'));
+    return rtn == null ? 2 : rtn;
+}
+
+function writeMenuCaptchaConfig(value) {
+    localStorage.setItem('menuCaptchaConfig', value);
+}
+
 function addToCourseList(seqno) {
     var cl = readCourseList();
     if (cl.indexOf(seqno) == -1) {
