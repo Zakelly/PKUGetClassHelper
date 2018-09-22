@@ -47,11 +47,17 @@ function detectCaptcha() {
         segment_reward_chartype: 1.0,
     }).then(function (result) {
         const code = result.text.replace(/[^a-z0-9A-Z]/g, '')
-        $('#validCode').val(code);
         if (code.length != 4) {
             eventHandler.detectCaptchaError();
         } else {
-            eventHandler.detectCaptchaSuccess();
+            eventHandler.validatePass = function () {
+                $('#validCode').val(code);
+                eventHandler.detectCaptchaSuccess();
+            }
+            eventHandler.validateNotPass = function (message) {
+                eventHandler.detectCaptchaError();
+            }
+            validate(code);
         }
     })
 }
