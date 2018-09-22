@@ -20,6 +20,7 @@
     })(window.location.search.substr(1).split('&'));
 
     var coursesPerPage = 50;
+
     // 返回tr的jQuery集合
     function LoadCourses(fromid, retry, callback) {
         var collection = null;
@@ -60,7 +61,8 @@
                 return;
             else
                 arguments.callee.hasExecuted = true;
-        } catch (e) { }
+        } catch (e) {
+        }
 
         $('.dropdown-toggle').dropdown();
 
@@ -89,7 +91,7 @@
             function ArgParse(firsthref, lasthref, index) {
                 var id = firsthref.attr("href").split("course_seq_no=")[1];
                 var seq_no = "";
-                if (lasthref.attr("href").indexOf("javascript")>=0) {
+                if (lasthref.attr("href").indexOf("javascript") >= 0) {
                     seq_no = lasthref.attr("onclick").split("\',\'")[4];
                 }
                 else {
@@ -132,23 +134,19 @@
                     $this.attr("name", "unavailable");
                 }
                 $this.append($("<td class='datagrid' align='center'></td>").append(chkbox));
+                if (readCourseList().indexOf(courseData.id) > -1) {
+                    $(".chkMonitor[data-seqno=" + courseData.id + "]").click();
+                }
                 return $this;
             }
 
-            $("table.datagrid:eq(0) tr").each(function (i) {
-                var $this = $(this);
-                if (i == 0)
-                    $this.append("<th class='datagrid'>监视</th>");
-                else
-                    AttachCourseRow($this, i - 1);
-            });
             if (true || worked) {  //temp disable the not working condition
                 $("#validCode").closest("tr").find("td:gt(0)").remove();
 
                 // 绑定事件响应程序
                 eventHandler.electSuccess = function (course) {
                     controls.sStatus.removeClass().addClass("statustext-success").text("成功选课：" + course.name);
-                    desktopNotify('success','选课成功', '恭喜您！已经成功选上“'+course.name+'”',null);
+                    desktopNotify('success', '选课成功', '恭喜您！已经成功选上“' + course.name + '”', null);
                     course.$tr.find(".chkMonitor").click();
                     course.$tr.find(".chkMonitor").attr("disabled", "disabled");
                 };
@@ -156,7 +154,7 @@
                     //不用刷新验证码
                     //document.getElementById('imgname').src = "http://elective.pku.edu.cn/elective2008/DrawServlet?Rand=" + Math.random();
                     controls.sStatus.removeClass().addClass("statustext-error").text("【请尽快填入验证码重试】试图选课“" + course.name + "”时遇到错误：" + err);
-                    desktopNotify('error','选课失败', "试图选课“" + course.name + "”时遇到错误：" + err,null);
+                    desktopNotify('error', '选课失败', "试图选课“" + course.name + "”时遇到错误：" + err, null);
                 };
                 var ctrlBar;
                 var container;
@@ -171,9 +169,9 @@
                 });
 
                 // 底部的空间
-                $('body').css({ marginBottom: "180px" });
+                $('body').css({marginBottom: "180px"});
 
-                var timInterval,countTime;
+                var timInterval, countTime;
 
                 var controls = {
                     txtInterval: null, validCode: null, imgname: null,
@@ -183,7 +181,7 @@
                     btnSoundConfig: null, menuSoundConfig: null,
                     btnTestSound: null, btnStopSound: null,
                     btnElectConfig: null, menuElectConfig: null, btnDummySubmit: null,
-                    dCourseList: null, limitTimesLabel:null, btnHide: null, disableMask: null,
+                    dCourseList: null, limitTimesLabel: null, btnHide: null, disableMask: null,
                     panelBody: null
                 };
                 for (var i in controls)
@@ -207,10 +205,11 @@
                     });
                 });
 
-                eventHandler.detectCaptchaError = function() {
+                eventHandler.detectCaptchaError = function () {
                     controls.imgname.click();
                 }
-                eventHandler.detectCaptchaSuccess = function() {}
+                eventHandler.detectCaptchaSuccess = function () {
+                }
 
                 document.getElementById('imgname').onload = detectCaptcha;
 
@@ -243,14 +242,28 @@
                         controls.dCourseList.append(
                             ComposeCourseInfo(Course.prototype.courses.get($this.data("seqno")))
                         );
+                        addToCourseList($this.data("seqno"));
                     } else {
                         $this.removeClass("chk");
                         controls.dCourseList.find("#dCourseInfo" + $this.data("seqno")).remove();
+                        deleteFromCourseList($this.data("seqno"));
                     }
                     controls.sStatus.removeClass().addClass("statustext-normal")
                         .text("监视中课程：" + $(".chk").length);
                 });
 
+                $("table.datagrid:eq(0) tr").each(function (i) {
+                    var $this = $(this);
+                    if (i == 0)
+                        $this.append("<th class='datagrid'>监视</th>");
+                    else
+                        AttachCourseRow($this, i - 1);
+                });
+
+                $('#txtInterval').val(readTxtInterval());
+                document.getElementById('txtInterval').onchange = function () {
+                    writeTxtInterval($('#txtInterval').val());
+                };
 
                 // 选择操作按钮们
                 controls.menuElectConfig.find("li").each(function () {
@@ -259,7 +272,6 @@
                         controls.btnElectConfig.html($(this).children("a").html() + '<span class="caret"></span>');
                     });
                 });
-
 
                 // 声音按钮们
                 controls.menuSoundConfig.find("li").each(function () {
@@ -279,7 +291,7 @@
                 checkUpdate(false);
 
                 //限额
-                controls.limitTimesLabel.text("今日限额已使用 "+ nowTimes +" / "+ limitTimes +" 次");
+                controls.limitTimesLabel.text("今日限额已使用 " + nowTimes + " / " + limitTimes + " 次");
 
                 function RefreshAllAndNotify() {
                     // 刷新和比对逻辑
@@ -293,7 +305,7 @@
                         return;
                     }
                     //限额
-                    controls.limitTimesLabel.text("今日限额已使用 "+ nowTimes +" / "+ limitTimes +" 次");
+                    controls.limitTimesLabel.text("今日限额已使用 " + nowTimes + " / " + limitTimes + " 次");
 
 
                     controls.sStatus.removeClass().addClass("statustext-normal").text("刷新中……");
@@ -336,7 +348,7 @@
 
                             if (!wasAvailable && lastData.currElectNum < lastData.maxElectNum
                                 && lastData.$tr.find(".chkMonitor")[0].checked == true) {
-                                lastData.$tr.css({backgroundColor:"#ee6666"});
+                                lastData.$tr.css({backgroundColor: "#ee6666"});
                                 watingForElect.push(lastData);
                                 hasElected = true;
                             }
@@ -344,7 +356,7 @@
                         countTime = parseInt(controls.txtInterval.val()) * 1000;
                         if (!hasElected) {
                             controls.sStatus.removeClass().addClass("statustext-normal")
-                                .text("刷新结束，无变化，" + countTime/1000 + ".0秒后再试");
+                                .text("刷新结束，无变化，" + countTime / 1000 + ".0秒后再试");
                         } else {
                             var sndConf = controls.btnSoundConfig.attr("data-value");
                             if (sndConf != 0)
@@ -379,7 +391,7 @@
                     }
                     else {
                         countTime -= 300;
-                        controls.sStatus.text(text+"，" + Math.floor(countTime/1000)+'.'+ Math.floor(countTime/100)%10 + "秒后再试");
+                        controls.sStatus.text(text + "，" + Math.floor(countTime / 1000) + '.' + Math.floor(countTime / 100) % 10 + "秒后再试");
                     }
                 }
 
@@ -394,24 +406,25 @@
                     $this = controls.tglbtnAutoRefresh;
                     if ($this.data("active")) {
                         clearInterval(timInterval);
-                        $this.data("active",false);
+                        $this.data("active", false);
                         $this.removeClass("btn-danger").addClass("btn-success").text("启用自动刷新");
                         controls.sStatus.removeClass().addClass("statustext-normal").text("已停止自动刷新");
                     } else {
-                        $this.data("active",true);
+                        $this.data("active", true);
                         $this.removeClass("btn-success").addClass("btn-danger").text("停止自动刷新");
                         // 先进行验证码验证
                         controls.sStatus.removeClass().addClass("statustext-normal").text("正在验证验证码...");
                         eventHandler.validatePass = function () {
                             if ($this.data("active"))
                                 RefreshAllAndNotify();
-                            eventHandler.detectCaptchaSuccess = function() {}
+                            eventHandler.detectCaptchaSuccess = function () {
+                            }
                         };
                         eventHandler.validateNotPass = function (message) {
-                            $this.data("active",false);
+                            $this.data("active", false);
                             $this.removeClass("btn-danger").addClass("btn-success").text("启用自动刷新");
                             controls.sStatus.removeClass().addClass("statustext-error").text(message);
-                            eventHandler.detectCaptchaSuccess = function() {
+                            eventHandler.detectCaptchaSuccess = function () {
                                 controls.tglbtnAutoRefresh.click();
                             }
                             controls.imgname.click();
@@ -421,7 +434,7 @@
                 });
                 controls.sStatus.removeClass().addClass("statustext-normal").text("就绪。尚未监视课程，请勾选相应复选框");
 
-                controls.btnHide.click(function() {
+                controls.btnHide.click(function () {
                     if ($(this).data("hide")) {
                         $(this).text("隐藏助手");
                         ctrlBar.slideDown();
