@@ -7,6 +7,20 @@ function writeCourseList(cl) {
     localStorage.setItem('courseList', JSON.stringify(cl));
 }
 
+function addToCourseList(hash) {
+    var cl = readCourseList();
+    if (cl.indexOf(hash) == -1) {
+        cl.push(hash);
+        writeCourseList(cl);
+    }
+}
+
+function deleteFromCourseList(hash) {
+    var cl = readCourseList();
+    cl.splice(cl.indexOf(hash), 1);
+    writeCourseList(cl);
+}
+
 function writeTxtInterval(txtInterval) {
     localStorage.setItem('txtInterval', txtInterval);
 }
@@ -32,18 +46,4 @@ function writeNavsConfig(value) {
 function readNavsConfig() {
     var rtn = JSON.parse(localStorage.getItem('navsConfig'));
     return rtn == null ? 0 : rtn;
-}
-
-function addToCourseList(seqno) {
-    var cl = readCourseList();
-    if (cl.indexOf(seqno) == -1) {
-        cl.push(seqno);
-        writeCourseList(cl);
-    }
-}
-
-function deleteFromCourseList(seqno) {
-    var cl = readCourseList();
-    cl.splice(cl.indexOf(seqno), 1);
-    writeCourseList(cl);
 }
