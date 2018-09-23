@@ -4,11 +4,12 @@
  */
 
 // 需要的域：除了构造参数，还需要$tr、name、currElectNum、maxElectNum
-var Course = function(id, number, index) {
+var Course = function(id, number, index, salt) {
     this.id = id;
     this.number = number;
     this.index = index;
     this.isDone = false;
+    this.salt = salt;
 };
 
 
@@ -41,5 +42,5 @@ String.prototype.hashCode = function() {
     return hash;
 };
 Course.prototype.getHash = function () {
-    return (this.id + this.index).hashCode();
+    return (this.id + this.salt).hashCode();
 };

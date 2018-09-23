@@ -89,7 +89,7 @@
             var validateDone = false;
 
             // 最后一个参数可能无
-            function ArgParse(firsthref, lasthref, index) {
+            function ArgParse(firsthref, lasthref, index, salt) {
                 var id = firsthref.attr("href").split("course_seq_no=")[1];
                 var seq_no = "";
                 if (lasthref.attr("href").indexOf("javascript") >= 0) {
@@ -98,7 +98,7 @@
                 else {
                     seq_no = lasthref.attr("href").split("&seq=")[1];
                 }
-                var c = new Course(id, seq_no, index);
+                var c = new Course(id, seq_no, index, salt);
                 c.name = firsthref.text();
                 return c;
             }
@@ -120,7 +120,12 @@
                 var actionHref = $this.find("td:last-child a"), chkbox;
                 if (actionHref.length == 0)
                     return null;
-                var courseData = ArgParse($this.find("td:first a"), actionHref, index);
+                var salt = "";
+                if ($this.find("td").length >= 13)
+                    salt = $this.find("td").eq(9).text();
+                else
+                    salt = $this.find("td").eq(8).text();
+                var courseData = ArgParse($this.find("td:first a"), actionHref, index, salt);
                 var numstrs = $this.find("[id^='electedNum']").text().split(" / ");
                 courseData.currElectNum = parseInt(numstrs[1]);
                 courseData.maxElectNum = parseInt(numstrs[0]);
@@ -371,7 +376,12 @@
                             var actionHref = $this.find("td:last-child a");
                             if (actionHref.length == 0)
                                 return null;
-                            var courseData = ArgParse($this.find("td:first a"), actionHref, index), lastData;
+                            var salt = "";
+                            if ($this.find("td").length >= 13)
+                                salt = $this.find("td").eq(9).text();
+                            else
+                                salt = $this.find("td").eq(8).text();
+                            var courseData = ArgParse($this.find("td:first a"), actionHref, index, salt), lastData;
                             lastData = Course.prototype.courses.get(courseData.getHash());
                             if (!lastData) {
                                 $("table.datagrid:eq(0)").append(
