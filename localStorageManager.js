@@ -25,6 +25,15 @@ function writeMenuCaptchaConfig(value) {
     localStorage.setItem('menuCaptchaConfig', value);
 }
 
+function writeNavsConfig(value) {
+    localStorage.setItem('navsConfig', value);
+}
+
+function readNavsConfig() {
+    var rtn = JSON.parse(localStorage.getItem('navsConfig'));
+    return rtn == null ? 0 : rtn;
+}
+
 function addToCourseList(seqno) {
     var cl = readCourseList();
     if (cl.indexOf(seqno) == -1) {
