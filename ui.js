@@ -106,7 +106,7 @@
             // 通过课程获得HTML展示代码
             function ComposeCourseInfo(course) {
                 var html = '<div class="course" id="$id"><span>$name</span><span>$max</span>/<span>$curr</span></div>'
-                    .replace(/\$id/g, "dCourseInfo" + course.id)
+                    .replace(/\$id/g, "dCourseInfo" + course.getHash())
                     .replace(/\$name/g, course.name)
                     .replace(/\$max/g, course.maxElectNum)
                     .replace(/\$curr/g, course.currElectNum);
