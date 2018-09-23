@@ -1,3 +1,8 @@
+window.Tesseract = Tesseract.create({
+    workerPath: chrome.extension.getURL('libs/tesseract/worker.js'),
+    corePath: chrome.extension.getURL('libs/tesseract/index-core.js'),
+});
+
 function detectCaptcha() {
     var c = document.getElementById('canv');
     var ctx = c.getContext("2d");
