@@ -23,6 +23,7 @@
                     <div class="input-group">
                         <input class="form-control" id="validCode" pattern="[0-9A-Za-z]{4}" autofocus required />
                         <div class="input-group-addon"><img id="imgname"/></div>
+                        <div class="input-group-addon"><canvas id="canv" width=58 height=22></canvas></div>
                     </div>
                 </div>
             </div>
@@ -58,6 +59,18 @@
                         <ul class="dropdown-menu" role="menu" id="menuElectConfig">
                             <li data-value="1"><a>桌面提示</a></li>
                             <li data-value="2"><a>提示并选课</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-inline pull-left" onsubmit="return false" style="margin-left: 10px;">
+                    <label>验证码设置：</label>
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-value="2" id="btnCaptchaConfig">自动识别验证码<span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" id="menuCaptchaConfig">
+                            <li data-value="1"><a>手动输入验证码</a></li>
+                            <li data-value="2"><a>自动识别验证码</a></li>
+                            <li data-value="3"><a>自动识别后启用自动刷新</a></li>
                         </ul>
                     </div>
                 </div>

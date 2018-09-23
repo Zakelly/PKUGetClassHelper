@@ -6,7 +6,7 @@
 		"exclude_globs": [  ],
 		"exclude_matches": [  ],
 		"include_globs": [  ],
-		"js": [ "libs/jquery.js", "libs/notify.js", "bootstrap.min.js", "map.js", "course.js",  "eventHandler.js", "elect.js", "validate.js" ,"server.js", "limit.js", "ui.js" ],
+		"js": [ "libs/tesseract.js", "libs/morph.js", "libs/jquery.js", "libs/notify.js", "bootstrap.min.js", "map.js", "course.js",  "eventHandler.js", "elect.js", "validate.js" ,"server.js", "limit.js", "captcha.js", "ui.js", "localStorageManager.js" ],
 		"css": [ "bootstrap.min.css", "style.css" ],
 		"matches": [ "http://elective.pku.edu.cn/elective2008/edu/pku/stu/elective/controller/supplement/SupplyAndCancel.do*","http://elective.pku.edu.cn/elective2008/edu/pku/stu/elective/controller/supplement/SupplyCancel.do*" ,"http://elective.pku.edu.cn/elective2008/edu/pku/stu/elective/controller/supplement/electSupplement.do*",
 		"http://elective.pku.edu.cn/elective2008/edu/pku/stu/elective/controller/supplement/supplement.jsp*","http://elective.pku.edu.cn/elective2008/edu/pku/stu/elective/controller/supplement/cancelCourse.do*"],
@@ -29,7 +29,7 @@
 	},
 	"description": "帮您在补退选中脱颖而出",
 	"name": "PKU 选课助手" ,
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"manifest_version": 2,
 	"icons": {
 		"256": "icons/icon_256.png",
