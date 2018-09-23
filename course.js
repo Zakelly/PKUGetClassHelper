@@ -17,7 +17,7 @@ Course.prototype.elect = function() {
     elect(this);
 };
 Course.prototype.save = function () {
-    this.courses.put(this.id, this);
+    this.courses.put(this.getHash(), this);
 };
 Course.prototype.refreshIndex = function(i) {
     if (i > 0) {
@@ -39,7 +39,7 @@ String.prototype.hashCode = function() {
         hash = hash & hash; // Convert to 32bit integer
     }
     return hash;
-}
+};
 Course.prototype.getHash = function () {
     return (this.id + this.index).hashCode();
 };

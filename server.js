@@ -3,8 +3,8 @@
  * @author Zakelly
  */
 
-var VERSION = 2018022701;
-var VERSION_STR = "2.2.0";
+var VERSION = 2018092301;
+var VERSION_STR = "2.3.1";
 var URL_VERSION = 'http://api.zakelly.com/getclasshelper/version';
 var sound = null;
 
