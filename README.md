@@ -15,6 +15,6 @@
 * Chrome商店的版本发行请联系Zakelly，欢迎邮件交流。
 
 ## 声明
-* 本项目作者(排名不分先后)：Zakelly, zhouhy
+* 本项目作者(排名不分先后)：cbwang2016, Zakelly, zhouhy
 * 本项目遵循GPL协议
 
