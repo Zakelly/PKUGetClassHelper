@@ -37,7 +37,7 @@
 		"64": "icons/icon_64.png"
 	},
 	"permissions": [ "notifications", "http://elective.pku.edu.cn/",  "http://api.zakelly.com/getclasshelper/", "http://www.zakelly.com/" ,"webRequest","webRequestBlocking"],
-  "web_accessible_resources": ["resources/mando-5.mp3","panel.html","icons/icon_256.png"],
+  "web_accessible_resources": ["resources/mando-5.mp3","panel.html","icons/icon_256.png", "libs/tesseract/worker.js", "libs/tesseract/index-core.js"],
   "background": {
 	"page": "background.html"
 	  },
